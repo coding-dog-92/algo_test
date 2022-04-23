@@ -1,0 +1,13 @@
+1.clarify requirements
+
+2.define apis
+
+3.estimate scale of system
+
+4.data model
+
+5.diagram
+
+6.details
+
+7.bottlenecks

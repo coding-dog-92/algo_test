@@ -1,0 +1,12 @@
+1.requirements
+    url->unique short link
+    short link->origin url
+    custom_key
+    expire
+
+    highly available/real-time/not predictable
+
+2.estimate capacity and constraints
+3.define apis
+    createUrl(accountId, originalUrl, customKey, userName, expire)
+    deleteUrl(accountId, url)
