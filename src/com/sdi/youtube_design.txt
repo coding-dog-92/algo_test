@@ -1,0 +1,11 @@
+requirements:
+    upload/view/download/delete videos
+    search based on titles
+    subscribe
+    status(number of views, likes/dislikes)
+    add comments
+
+apis:
+    upload(user_id, title, description, tags[], category, path, contents)
+    search(user_id, title, page_size, page_no)
+    view(user_id, video_id, offset, codec, resolution)

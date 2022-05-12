@@ -11,3 +11,9 @@
 6.details
 
 7.bottlenecks
+
+
+网关/负载/消息队列/熔断/降级/无状态服务/数据分片(水平and垂直)/主从分离/加密,salt/日志/埋点/数据清洗/模型训练/投放观察/实验平台/报表/监控/发票/服务发现/注册中心(心跳)
+
+nosql:dynamoDB/cassandra
+object storage/distributed file storage:amazon s3, hdfs

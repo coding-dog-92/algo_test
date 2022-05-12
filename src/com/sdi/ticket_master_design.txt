@@ -1,0 +1,11 @@
+requirements:
+    view cinemas
+    view movies
+    search
+    book seats(hold on the seats for 5 min+make a payment)
+
+
+apis:
+    search(user_id,search_term,location,cinema,movie,radius,start_time, end_time,page_size,order)
+
+    reserve(user_id,cinema,movie,seats,time)

@@ -1,0 +1,10 @@
+requirements:
+    upload/download/delete file
+    share file
+    synchronize between devices
+    large file
+    acid atomicity/consistency/isolation/durability
+    offline edit
+    snapshot go back to any version
+
+1

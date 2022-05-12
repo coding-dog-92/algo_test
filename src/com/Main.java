@@ -1,6 +1,6 @@
 package com;
 
-import com.test.TreeNode;
+import com.algo.TreeNode;
 
 import java.util.*;
 
