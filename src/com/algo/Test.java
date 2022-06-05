@@ -1,8 +1,6 @@
 package com.algo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -13,10 +11,29 @@ public class Test {
 //        System.out.println(threeSum(new int[]{-1,0,1,2,-1,-4}));
 //        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
 //        System.out.println(coinChange(new int[]{1,2,5}, 11));
-        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 
 
+        int[][] ints = firstSmaller(new int[]{5, 3, 1, 2, 4});
+        System.out.println(Arrays.deepToString(ints));
+    }
 
+    public static int[][] firstSmaller(int[] nums) {
+        int[] leftSmaller = new int[nums.length];
+        int[] rightSmaller = new int[nums.length];
+        Arrays.fill(leftSmaller, -1);
+        Arrays.fill(rightSmaller, -1);
+        Deque<Integer> queue = new LinkedList<>(); // increasing queue
+        for (int i = 0; i < nums.length; i++) {    // left to right
+            while (!queue.isEmpty() && nums[queue.peekLast()] >= nums[i]) {
+                rightSmaller[queue.pollLast()] = nums[i];
+            }
+            if (!queue.isEmpty()) {
+                leftSmaller[i] = nums[queue.peekLast()];
+            }
+            queue.offerLast(i);
+        }
+
+        return new int[][]{leftSmaller, rightSmaller};
     }
 
     public static int[] productExceptSelf(int[] nums) {

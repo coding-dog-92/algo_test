@@ -29,4 +29,6 @@ public class LaunchedDailyRatingConsecutivelyDecreasing {
 //        System.out.println(new DecreasingRating().count(new int[]{4,3,5,4,3}, 3));
         System.out.println(new DecreasingRating().countDecreasingRatings(new int[]{4,3,5,4,3}));
     }
+
+
 }
