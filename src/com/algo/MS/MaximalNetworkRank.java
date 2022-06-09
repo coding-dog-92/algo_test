@@ -1,7 +1,7 @@
 package com.algo.MS;
 
 public class MaximalNetworkRank {
-    public int maximalNetworkRank(int n, int[][] roads) {
+    public static int maximalNetworkRank(int n, int[][] roads) {
         int maxRank = 0;
         boolean[][] connectMap = new boolean[n][n];
         int[] degree = new int[n];
@@ -22,5 +22,12 @@ public class MaximalNetworkRank {
             }
         }
         return maxRank;
+    }
+
+    public static void main(String[] args) {
+        int[][] roads = new int[][] {
+                {0,1},{1,2},{3,4},{4,5}
+        };
+        System.out.println(maximalNetworkRank(6, roads));
     }
 }
