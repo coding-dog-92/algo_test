@@ -12,9 +12,13 @@ public class Test {
 //        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
 //        System.out.println(coinChange(new int[]{1,2,5}, 11));
 
-
-        int[][] ints = firstSmaller(new int[]{5, 3, 1, 2, 4});
-        System.out.println(Arrays.deepToString(ints));
+//
+//        int[][] ints = firstSmaller(new int[]{5, 3, 1, 2, 4});
+//        System.out.println(Arrays.deepToString(ints));
+        String str = "13321";
+        String reverse = new StringBuilder(str).reverse().toString();
+        System.out.println(reverse);
+        String.valueOf(1);
     }
 
     public static int[][] firstSmaller(int[] nums) {
