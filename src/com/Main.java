@@ -18,8 +18,8 @@ public class Main {
 //        viewOfBinaryTree.rightView(root, 1, resultList);
 //        System.out.println(resultList);
 
-        System.out.println(sumSubArray(new int[]{2,3,2}));
-
+//        System.out.println(sumSubArray(new int[]{2,3,2}));
+        System.out.println(10/10);
     }
 
     /**
