@@ -2,7 +2,7 @@ package com.algo.company.booking;
 
 import java.util.*;
 
-public class LearnGreedy {
+public class CallCenter {
 
     public static void greedy() {
         Map<String, Set<String>> broadcasts = new HashMap<>();
