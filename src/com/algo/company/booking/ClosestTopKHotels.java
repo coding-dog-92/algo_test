@@ -1,5 +1,8 @@
 package com.algo.company.booking;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.PriorityQueue;
 
 public class ClosestTopKHotels {
@@ -15,8 +18,9 @@ public class ClosestTopKHotels {
      * https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/
      */
     public static void main(String[] args) {
-//        System.out.println(shiftString("abcd", 1, 2));
-        System.out.println(minimumResult(new int[]{10,20,7}, 4));
+//        System.out.println(shiftString("abcd", 1, 7));
+//        System.out.println(minimumResult(new int[]{10,20,7}, 4));
+        System.out.println(Arrays.toString(minSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)));
     }
 
     /**
@@ -31,11 +35,11 @@ public class ClosestTopKHotels {
     public static String shiftString(String s, int left, int right) {
         if (left==right) return s;
         boolean isLeft = left>right;
-        int step = Math.abs(left-right);
+        int step = Math.abs(left-right)%s.length();
         if (isLeft) {
             return s.substring(step)+s.substring(0,step);
         }
-        return s.substring(s.length()-1)+s.substring(0, s.length()-1);
+        return s.substring(s.length()-step)+s.substring(0, s.length()-step);
     }
 
     /**
@@ -67,5 +71,23 @@ public class ClosestTopKHotels {
         int sum = 0;
         while (!queue.isEmpty()) sum+=queue.poll();
         return sum;
+    }
+
+    public static int[] minSlidingWindow(int[] nums, int k) {
+        /**
+         *  while(nums[cur] <= dq.last)
+         */
+        int n = nums.length;
+        // note: value is indices
+        Deque<Integer> dq = new ArrayDeque<>();
+        int[] res = new int[n-k+1];
+        for(int right=0;right<n;right++) {
+            while(!dq.isEmpty() && nums[right]<=nums[dq.peekLast()]) dq.pollLast();
+            dq.offer(right);
+            int left = right-k+1;
+            while(!dq.isEmpty() && dq.peekFirst()<left) dq.pollFirst();
+            if(left>=0 && !dq.isEmpty()) res[left] = nums[dq.peekFirst()];
+        }
+        return res;
     }
 }
