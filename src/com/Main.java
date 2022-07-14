@@ -18,8 +18,27 @@ public class Main {
 //        viewOfBinaryTree.rightView(root, 1, resultList);
 //        System.out.println(resultList);
 
-        System.out.println(sumSubArray(new int[]{2,3,2}));
+//        System.out.println(sumSubArray(new int[]{2,3,2}));
+        System.out.println(1e9);
+    }
 
+    static String add(String a, String b) {
+//        if(a.length() < b.length()) return add(b, a);
+        int m = a.length();
+        int n = b.length();
+        StringBuilder sb = new StringBuilder();
+        int carry = 0, i=m-1, j=n-1;
+        while(i>=0 || j>=0) {
+            int num1 = i>=0? a.charAt(i)-'0' : 0;
+            int num2 = j>=0? b.charAt(j)-'0' : 0;
+            int curSum = num1+num2+carry;
+            carry = curSum / 10;
+            sb.append(curSum%10);
+            i--;
+            j--;
+        }
+        if(carry>0) sb.append(carry);
+        return sb.reverse().toString();
     }
 
     /**
