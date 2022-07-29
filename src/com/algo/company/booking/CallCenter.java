@@ -61,6 +61,23 @@ public class CallCenter {
         System.out.println(selects);
     }
 
+    /**
+     * https://leetcode.com/discuss/interview-question/1726450/Booking.com-or-Virtual-On-site-or-Coding-Interview-or-2022
+     * To operate a call center, at any given day, a min of 3 english speaking, 2 dutch speaking and 1 spanish speaking employee need to be there. (you can have one employee speaking two or more languages)
+     * An employee can atmost work for 5 days. For simplicity let's say an employee works for a standard of 8 hrs every day. (not sure if hours were relevant)
+     * The call center operates 7 days a week.
+     * Given employees and the languages they speak, can you atleast come up with a schedule for the first week ?
+     *
+     * Employee 1 : English, Dutch
+     * Employee 2 : English, Dutch
+     * Employee 3: Spanish, Dutch
+     * Employee 4: English, Dutch, Spanish
+     * Employee 5: Dutch, Spanish
+     * Employee 6: English, Dutch
+     * Employee 7: English, Spanish
+     *
+     * The input may not be complete, but you get the gist. I thought of greedy/dfs, but couldn't come up with a working solution.
+     */
     public static void callCenter() {
         // all task
         Map<String, Integer> allTasks = new HashMap<>();

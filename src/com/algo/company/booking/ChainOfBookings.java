@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class ChainOfBookings {
     /**
+     * https://leetcode.com/discuss/interview-question/1983864/Interview-Booking.com-or-Coding-Interview-or-Virtual-On-site-or-March-2022-or-Find-chain-of-bookings
      * We have the following class that describes a booking:
      *
      * Booking {
