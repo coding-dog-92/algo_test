@@ -111,7 +111,8 @@ public class Solution {
 // Currently it returns a stream with pageviews counts for all the hotels in France (FR).
 // Modify the function so it returns for each area code the hotel with the highest number of views by logged-in users.
     public static BStream<OutputMessage> process(BStream<InputMessage> input) {
-        return input.filter( x -> x.hotel_area_code.equals("FR")) // filter for hotels in FR
+//        return input.filter( x -> x.hotel_area_code.equals("FR")) // filter for hotels in FR
+        return input.filter( x -> x.is_user_logged_in) // filter for hotels in FR
                 .map(
 // Map to PageviewCounter helper class with counter set to 1
                         x -> new PageviewCounter(x.hotel_id, x.hotel_area_code,1)
@@ -134,13 +135,17 @@ public class Solution {
         Scanner scanner = new Scanner(System.in);
         List<String> inputLines = new ArrayList<>();
         while(scanner.hasNextLine()) {
-            inputLines.add(scanner.nextLine());
+            String s = scanner.nextLine();
+            if (s == null || s.length()==0) break;
+            inputLines.add(s);
         }
+        System.out.println(inputLines);
         List<InputMessage> inputList = inputLines.stream()
                 .map(x -> gson.fromJson(x, InputMessage.class))
                 .collect(Collectors.toList());
 
-        String outputFilename = System.getenv("OUTPUT_PATH");
+//        String outputFilename = System.getenv("test.txt");
+        String outputFilename = "test_stream.txt";
         PrintWriter printWriter = new PrintWriter(outputFilename);
 
         BStream<InputMessage> input = new BStream<>(inputList);
