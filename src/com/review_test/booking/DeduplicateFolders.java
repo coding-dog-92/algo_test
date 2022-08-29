@@ -1,7 +1,10 @@
-package com.algo.company.booking;
+package com.review_test.booking;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DeduplicateFolders {
     /**
@@ -40,62 +43,55 @@ public class DeduplicateFolders {
      *                boo    c   buzz       a    b
      *               /  \       /  \
      *              a    b    a     b
-     *  node.val+"#"+serial(node.left)+"#"+serial(node.right)
-     *  serial(node.left)+"#"+node.left.val+"#"+serial(node.right)+"#"+node.right.val+"#"
-     *  a: ""
-     *  boo: #a##b#
-     *  buzz: #a##b#
-     *  baz: #a##b#boo##c
+     * node.val+serial(node.left)+serial(node.right)
      *
-     *  serial(dir.child1)+"#"+dir.child1.name+serial(dir.child2)+"#"+dir.child2.name+....
+     * serial(node.left)+#+node.left.val+#+serial(node.right)+#+node.right.val+#
+     * if is file, str=""
+     * a: ""
+     * boo: #a##b#
+     * buzz: #a##b#
+     * baz: #a##b##boo##c#
+     *
      */
 
-    Map<String, Integer> key2CountMap = new HashMap<>();
+    Map<String, Integer> key2Count = new HashMap<>();
     Map<String, List<File>> key2FileListMap = new HashMap<>();
 
-    String serialize(File dir) {
-        if (!dir.exists()) return "";
-        String key = "";
-        if (dir.isDirectory()) {
-            for(File child : dir.listFiles()) {
-                key += serialize(child) + "#" + child.getName() + "#";
+    String serialize(File file) {
+        if (!file.exists()) return "";
+        String res = "";
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
+                res += serialize(child) + "#" + child.getName() + "#";
             }
         }
-        int count = key2CountMap.getOrDefault(key, 0);
-        if (!"".equals(key) && count>0) {
-            System.out.println("find duplicate: " + dir);
-            boolean delete = deleteDir(dir);
-            if (!delete) {
-                System.out.println("delete failed...");
-            }
+        int count = key2Count.getOrDefault(res, 0);
+        if (!"".equals(res) && count>0) {
+            // delete
         }
-        key2CountMap.put(key, count+1);
-        if (!key2FileListMap.containsKey(key)) {
-            key2FileListMap.put(key, new ArrayList<>());
-        }
-        key2FileListMap.get(key).add(dir);
-        return key;
+        key2Count.put(res, count+1);
+        if (!key2FileListMap.containsKey(res)) key2FileListMap.put(res, new ArrayList<>());
+        key2FileListMap.get(res).add(file);
+        return res;
     }
 
-    boolean deleteDir(File file) {
+    boolean delete(File file) {
         if (!file.exists()) return true;
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
-                deleteDir(child);
+                delete(child);
             }
         }
         return file.delete();
     }
 
     public static void main(String[] args) {
-        DeduplicateFolders deduplicateFolders = new DeduplicateFolders();
+        DeduplicateFolders folders = new DeduplicateFolders();
         File file = new File("D:\\booking");
-        deduplicateFolders.serialize(file);
-//        System.out.println(deduplicateFolders.key2CountMap);
-        for (Map.Entry<String, Integer> entry : deduplicateFolders.key2CountMap.entrySet()) {
-            if (!"".equals(entry.getKey()) && entry.getValue()>1) {
-                System.out.println(deduplicateFolders.key2FileListMap.get(entry.getKey()));
-            }
+        folders.serialize(file);
+        for (Map.Entry<String, List<File>> entry : folders.key2FileListMap.entrySet()) {
+            System.out.println("key= "+entry.getKey());
+            System.out.println(entry.getValue());
         }
     }
 }
