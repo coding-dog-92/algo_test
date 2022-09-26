@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 public class Elevator {
 
     /**
-     * 只考虑一个电梯的情况，是否考虑电梯的容量负载，以及开门关门(超重不能关门)
+     * 只考虑一个电梯的情况，是否考虑电梯的容量负载，以及开门关门(超重不能关门),是否考虑扩展？interface+abstract class
      * 1.电梯的方向/状态有三个，up/down/stop，按电梯可以在外面/里面两个位置
      * 2.定义request，包含currentFloor/target/方向/位置
      * 3.Elevator类有currentFloor、方向、向上优先队列，向下优先队列
