@@ -15,10 +15,349 @@ public class Test {
 //
 //        int[][] ints = firstSmaller(new int[]{5, 3, 1, 2, 4});
 //        System.out.println(Arrays.deepToString(ints));
-        String str = "13321";
-        String reverse = new StringBuilder(str).reverse().toString();
-        System.out.println(reverse);
-        String.valueOf(1);
+//        PriorityQueue<Integer> pq = new PriorityQueue<>();
+//        List<Integer> list = new ArrayList<Integer>();
+//        list.add(5);
+//        list.set(0,1);
+//        list.contains(1);
+//        list.remove();
+//        System.out.println(list);
+//        Arrays.sort(new Integer[]{1,2,3}, (a,b)->a.compareTo(b));
+        System.out.println(2^3);
+    }
+
+    static String removeDuplicateLetters(String s) {
+        Stack<Character> stk = new Stack<>();
+
+        // 维护一个计数器记录字符串中字符的数量
+        // 因为输入为 ASCII 字符，大小 256 够用了
+        int[] count = new int[256];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i)]++;
+        }
+
+        boolean[] inStack = new boolean[256];
+        for (char c : s.toCharArray()) {
+            // 每遍历过一个字符，都将对应的计数减一
+            count[c]--;
+
+            if (inStack[c]) continue;
+
+            while (!stk.isEmpty() && stk.peek() > c) {
+                // 若之后不存在栈顶元素了，则停止 pop
+                if (count[stk.peek()] == 0) {
+                    break;
+                }
+                // 若之后还有，则可以 pop
+                inStack[stk.pop()] = false;
+            }
+            stk.push(c);
+            inStack[c] = true;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stk.empty()) {
+            sb.append(stk.pop());
+        }
+        return sb.reverse().toString();
+    }
+
+    static Map<Character, Long> numMap  = new HashMap<>();
+    static Set<Character> exclusiveZeroSet = new HashSet<>();
+    static {
+        numMap.put('零', 0L);
+        numMap.put('一', 1L);
+        numMap.put('二', 2L);
+        numMap.put('三', 3L);
+        numMap.put('四', 4L);
+        numMap.put('五', 5L);
+        numMap.put('六', 6L);
+        numMap.put('七', 7L);
+        numMap.put('八', 8L);
+        numMap.put('九', 9L);
+        numMap.put('十', 10L);
+        numMap.put('廿', 20L);
+        numMap.put('卅', 30L);
+        numMap.put('百', 100L);
+        numMap.put('千', 1000L);
+        numMap.put('万', 10_000L);
+        numMap.put('亿', 100_000_000L);
+
+        exclusiveZeroSet.add('亿');
+        exclusiveZeroSet.add('万');
+        exclusiveZeroSet.add('千');
+        exclusiveZeroSet.add('百');
+        exclusiveZeroSet.add('卅');
+        exclusiveZeroSet.add('廿');
+        exclusiveZeroSet.add('十');
+    }
+
+
+
+    static long convertStr2Num(String s) {
+        long res = 0;
+        int yi = s.indexOf('亿');
+        if(yi != -1) {
+            res += (convertStr2Num(s.substring(0, yi)))*numMap.get('亿');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+        yi = s.indexOf('万');
+        if(yi != -1) {
+            res += (convertStr2Num(s.substring(0, yi)))*numMap.get('万');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+        yi = s.indexOf('千');
+        if(yi != -1) {
+            res += (convertStr2Num(s.substring(0, yi)))*numMap.get('千');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+        yi = s.indexOf('百');
+        if(yi != -1) {
+            res += (convertStr2Num(s.substring(0, yi)))*numMap.get('百');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+        yi = s.indexOf('卅');
+        if(yi != -1) {
+            res += numMap.get('卅');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+        yi = s.indexOf('十');
+        if(yi != -1) {
+            res += (convertStr2Num(s.substring(0, yi)))*numMap.get('十');
+            s = s.substring(yi+1);
+        }
+//        System.out.println(s);
+
+        yi = s.indexOf('零');
+        if (yi > 0 && exclusiveZeroSet.contains(s.charAt(yi-1))) s=s.substring(yi+1);
+//        System.out.println(s);
+        if(s.length()>0) {
+            long tmp = 0;
+            for (int k=0;k<s.length();k++) {
+                tmp  = tmp*10+numMap.get(s.charAt(k));
+            }
+            res += tmp;
+        }
+        return res;
+    }
+
+
+    private static int chineseNumber2Int(String chineseNumber){
+        int result = 0;
+        int temp = 1;//存放一个单位的数字如：十万
+        int count = 0;//判断是否有chArr
+        char[] cnArr = new char[]{'一','二','三','四','五','六','七','八','九'};
+        char[] chArr = new char[]{'十','百','千','万','亿'};
+        for (int i = 0; i < chineseNumber.length(); i++) {
+            boolean b = true;//判断是否是chArr
+            char c = chineseNumber.charAt(i);
+            for (int j = 0; j < cnArr.length; j++) {//非单位，即数字
+                if (c == cnArr[j]) {
+                    if(0 != count){//添加下一个单位之前，先把上一个单位值添加到结果中
+                        result += temp;
+                        temp = 1;
+                        count = 0;
+                    }
+                    // 下标+1，就是对应的值
+                    temp = j + 1;
+                    b = false;
+                    break;
+                }
+            }
+            if(b){//单位{'十','百','千','万','亿'}
+                for (int j = 0; j < chArr.length; j++) {
+                    if (c == chArr[j]) {
+                        switch (j) {
+                            case 0:
+                                temp *= 10;
+                                break;
+                            case 1:
+                                temp *= 100;
+                                break;
+                            case 2:
+                                temp *= 1000;
+                                break;
+                            case 3:
+                                temp *= 10000;
+                                break;
+                            case 4:
+                                temp *= 100000000;
+                                break;
+                            default:
+                                break;
+                        }
+                        count++;
+                    }
+                }
+            }
+            if (i == chineseNumber.length() - 1) {//遍历到最后一个字符
+                result += temp;
+            }
+        }
+        return result;
+    }
+
+
+    public boolean isValid(String code) {
+        int n = code.length();
+        Deque<String> tags = new ArrayDeque<String>();
+
+        int i = 0;
+        while (i < n) {
+            if (code.charAt(i) == '<') {
+                if (i == n - 1) {
+                    return false;
+                }
+                if (code.charAt(i + 1) == '/') {
+                    int j = code.indexOf('>', i);
+                    if (j < 0) {
+                        return false;
+                    }
+                    String tagname = code.substring(i + 2, j);
+                    if (tags.isEmpty() || !tags.peek().equals(tagname)) {
+                        return false;
+                    }
+                    tags.pop();
+                    i = j + 1;
+                    if (tags.isEmpty() && i != n) {
+                        return false;
+                    }
+                } else if (code.charAt(i + 1) == '!') {
+                    if (tags.isEmpty()) {
+                        return false;
+                    }
+                    if (i + 9 > n) {
+                        return false;
+                    }
+                    String cdata = code.substring(i + 2, i + 9);
+                    if (!"[CDATA[".equals(cdata)) {
+                        return false;
+                    }
+                    int j = code.indexOf("]]>", i);
+                    if (j < 0) {
+                        return false;
+                    }
+                    i = j + 3;
+                } else {
+                    int j = code.indexOf('>', i);
+                    if (j < 0) {
+                        return false;
+                    }
+                    String tagname = code.substring(i + 1, j);
+                    if (tagname.length() < 1 || tagname.length() > 9) {
+                        return false;
+                    }
+                    for (int k = 0; k < tagname.length(); ++k) {
+                        if (!Character.isUpperCase(tagname.charAt(k))) {
+                            return false;
+                        }
+                    }
+                    tags.push(tagname);
+                    i = j + 1;
+                }
+            } else {
+                if (tags.isEmpty()) {
+                    return false;
+                }
+                ++i;
+            }
+        }
+
+        return tags.isEmpty();
+    }
+
+
+    int i=0;
+    public int calculate(String s) {
+        // num是求字符串中连续的数字，sign是指当前位置的符号是正还是负
+        int num = 0;
+
+        char sign = '+';
+
+        Stack<Integer> stack = new Stack<>();
+
+        for (; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                num = 10 * num + c - '0';
+            }
+            //如果有左括号，进行递归计算括号里面的值
+            if (c == '(') {
+                i++;//递归进入去左括号的下一个字符
+                num = calculate(s);
+            }
+
+            if ((!Character.isDigit(c) && c != ' ') || i == s.length() - 1) {
+                System.out.println(i);
+                switch (sign) {
+
+                    case '+':
+                        stack.push(num);
+                        break;
+
+                    case '-':
+                        stack.push(-num);
+                        break;
+
+                    case '*':
+                        stack.push(stack.pop() * num);
+                        break;
+
+                    case '/':
+                        stack.push(stack.pop() / num);
+                        break;
+
+                }
+                sign = c;
+                num = 0;
+                if(sign == ')') break;
+            }
+            System.out.println(stack);
+        }
+
+        int res = 0;
+        while (!stack.isEmpty()) {
+            res += stack.pop();
+        }
+        return res;
+    }
+
+    public static int compress(char[] chars) {
+        int n = chars.length;
+        int left = 0, right = 0;
+        while (right<n) {
+            char cur = chars[right];
+            while (chars[right]==cur) right++;
+            int num = right-left;
+            chars[left] = cur;
+            left++;
+            if (num>1) {
+                String numStr = String.valueOf(num);
+                for (int i=0;i<numStr.length();i++) {
+                    chars[left++] = numStr.charAt(i);
+                }
+            }
+        }
+        return left;
+    }
+
+    public static int maxChunksToSorted(int[] arr) {
+        int n = arr.length, ans = 1, leftMax = arr[0]; // leftMax: 前缀最大值
+        int[] rightMin = new int[n]; // 后缀最小值数组
+        rightMin[n-1] = arr[n-1];
+        for (int i = n-2; i >= 0; i--) rightMin[i] = Math.min(arr[i], rightMin[i+1]);
+        System.out.println(Arrays.toString(rightMin));
+        for (int i = 1; i < n; i++) {
+            System.out.println(leftMax);
+            if (leftMax <= rightMin[i]) ans++; // i 位置“守得住”，可以增加分块
+            leftMax = Math.max(leftMax, arr[i]);
+        }
+        return ans;
     }
 
     public static int[][] firstSmaller(int[] nums) {
