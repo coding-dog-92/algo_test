@@ -23,7 +23,8 @@ public class Test {
 //        list.remove();
 //        System.out.println(list);
 //        Arrays.sort(new Integer[]{1,2,3}, (a,b)->a.compareTo(b));
-        System.out.println(2^3);
+        Stack<Character> stack = new Stack<>();
+        stack.push((char) 1);
     }
 
     static String removeDuplicateLetters(String s) {

@@ -190,7 +190,7 @@ class FileSearcher implements Visitor<Node> {
     }
 }
 
-public class FileSearch {
+class FileSearch {
     public static void main(String[] args) {
         Directory root = new Directory("/");
         root.addNode(new Directory("bin"));
