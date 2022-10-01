@@ -4,27 +4,12 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-//        System.out.println(Arrays.toString(productExceptSelf(new int[]{1, 2, 3, 4})));
-//        System.out.println(maxSubArray(new int[]{5,4,-1,7,8}));
-//        System.out.println(maxProduct(new int[]{-1,-2,-9,-6}));
-//        System.out.println(findMin(new int[]{4,5,6,7,0,1,2}));
-//        System.out.println(threeSum(new int[]{-1,0,1,2,-1,-4}));
-//        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
-//        System.out.println(coinChange(new int[]{1,2,5}, 11));
-
-//
-//        int[][] ints = firstSmaller(new int[]{5, 3, 1, 2, 4});
-//        System.out.println(Arrays.deepToString(ints));
-//        PriorityQueue<Integer> pq = new PriorityQueue<>();
-//        List<Integer> list = new ArrayList<Integer>();
-//        list.add(5);
-//        list.set(0,1);
-//        list.contains(1);
-//        list.remove();
-//        System.out.println(list);
-//        Arrays.sort(new Integer[]{1,2,3}, (a,b)->a.compareTo(b));
-        Stack<Character> stack = new Stack<>();
-        stack.push((char) 1);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int i = 0; i < 10; i++) {
+            pq.offer(i);
+            if(pq.size()>5) pq.poll();
+        }
+        while(!pq.isEmpty()) System.out.println(pq.poll());
     }
 
     static String removeDuplicateLetters(String s) {
