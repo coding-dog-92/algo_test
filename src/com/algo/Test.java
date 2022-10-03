@@ -4,12 +4,9 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for (int i = 0; i < 10; i++) {
-            pq.offer(i);
-            if(pq.size()>5) pq.poll();
-        }
-        while(!pq.isEmpty()) System.out.println(pq.poll());
+        String s = "abcabcdabc";
+        System.out.println(s.substring(0,3));
+        System.out.println(s.substring(3,6));
     }
 
     static String removeDuplicateLetters(String s) {
