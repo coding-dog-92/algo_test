@@ -3,10 +3,45 @@ package com.algo;
 import java.util.*;
 
 public class Test {
+
+    static final int BASE = (int)1e9+7;
     public static void main(String[] args) {
-        String s = "abcabcdabc";
-        System.out.println(s.substring(0,3));
-        System.out.println(s.substring(3,6));
+//        System.out.println(reverse(1323));
+        int ints = maxSlidingWindow(new int[]{1,3,5,2,7,5}, 2, 5, 1);
+        System.out.println(ints);
+    }
+
+    static int maxSlidingWindow(int[] nums, int k, int max, int min) {
+        int n = nums.length;
+//        int[] res=new int[n-k+1];
+        int res = 0;
+        Deque<Integer> maxQueue = new ArrayDeque<>(), minQueue = new ArrayDeque<>();
+        for(int i=0;i<n;i++) {
+            int cur = nums[i];
+            while(!maxQueue.isEmpty() && cur>=nums[maxQueue.peekLast()]) {
+                maxQueue.pollLast();
+            }
+            while(!minQueue.isEmpty() && cur<=nums[minQueue.peekLast()]) {
+                minQueue.pollLast();
+            }
+            maxQueue.offer(i);
+            minQueue.offer(i);
+            int left = i-k+1;
+            while(maxQueue.peekFirst()<left) maxQueue.pollFirst();
+            while(minQueue.peekFirst()<left) minQueue.pollFirst();
+//            if(left>=0) res[left] = nums[minQueue.peekFirst()];
+            if(left>=0 && nums[minQueue.peekFirst()]==min && nums[maxQueue.peekFirst()]==max) res++;
+        }
+        return res;
+    }
+
+    static int reverse(int i) {
+        int res = 0;
+        while(i>0) {
+            res = res*10+(i%10);
+            i/=10;
+        }
+        return res;
     }
 
     static String removeDuplicateLetters(String s) {
