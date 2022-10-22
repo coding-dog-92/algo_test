@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TBoard {
+public class ZBoard {
     private char[][] board;
     private char[][] tmpBoard;
-    public TBoard(){
+    public ZBoard(){
     }
     public void move(int[] current, int[] target, boolean isNextPlayer){
         if (canMove(current,target,isNextPlayer)){
@@ -124,7 +124,7 @@ public class TBoard {
         System.out.println(new String(ans));
     }
     public static void main(String[] args) {
-        TBoard bg = new TBoard();
+        ZBoard bg = new ZBoard();
         int n = 4;
         bg.board = new char[][]{
                 {'1','0','0','0'},
