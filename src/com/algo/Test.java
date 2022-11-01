@@ -9,6 +9,23 @@ public class Test {
 //        System.out.println(reverse(1323));
         int ints = maxSlidingWindow(new int[]{1,3,5,2,7,5}, 2, 5, 1);
         System.out.println(ints);
+
+        TreeMap<Age, Integer> map = new TreeMap<>((a,b)->a.x-b.x);
+        map.put(new Age(2,4),2);
+        map.put(new Age(1,4),1);
+        map.put(new Age(6,4),6);
+        System.out.println(map.values());
+
+        int[][] arr = {{1,1},{3,2},{5,3},{4,1}};
+    }
+
+    static class Age{
+        int x, y;
+
+        public Age(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     static int maxSlidingWindow(int[] nums, int k, int max, int min) {

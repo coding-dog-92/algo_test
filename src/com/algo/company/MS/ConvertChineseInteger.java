@@ -1,4 +1,4 @@
-package com.algo.company.amz;
+package com.algo.company.MS;
 
 import java.util.HashMap;
 import java.util.HashSet;

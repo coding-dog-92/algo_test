@@ -1,0 +1,12 @@
+requirements:
+    drivers:
+    report current location and availability
+    receive notification a customer is ready to be picked up
+    once ride is accepted, can constantly see each other's location
+    after reaching destination, marks the trip complete to become available for the next ride
+
+    customers:
+    see nearby drivers
+    request a ride
+    once ride is accepted, can constantly see each other's location
+    pay

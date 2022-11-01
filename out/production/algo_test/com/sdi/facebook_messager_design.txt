@@ -1,0 +1,4 @@
+requirements:
+    one-on-one chat
+    users' status
+    chat history
